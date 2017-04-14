@@ -44,3 +44,11 @@ Pure Python Example:
 5. Congratulations, you can now use ~/ssh-tfa.py anywhere you would use the ssh command. For example:
    ~/ssh-tfa.py -X <The-Server> -l <user-id>
 NOTE:Due to limitations of the current python script, some actions (e.g. screen resizing) do not work as you might expect. If this is a problem, use the generic example and custom sshpass instead.
+
+References
+
+1. https://github.com/google/google-authenticator/wiki/Key-Uri-Format
+2. http://zbar.sourceforge.net/
+3. https://github.com/tadeck/onetimepass
+4. https://github.com/LazarSoft/jsqrcode
+
