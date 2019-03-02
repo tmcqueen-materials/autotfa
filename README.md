@@ -22,12 +22,7 @@ Generic Example:
 2. Save the QR Code as an image from the site that generated it.
 3. Decode the QR Code by running zbarimg <image-file>. The relevant parameters are the type (totp in the example above) and the shared secret (JBSWY3DPEHPK3PXP in the example above). If the type is hotp, the third relevant parameter is the number after counter= (not present in above example which is not hotp).
 4. Install the onetimepass python module: pip install onetimepass (or, if a system installation, prefix with sudo).
-5. Write a small python script to generate the TFA code, save it as a file, e.g. ~/genTFA.py (from ref. 3 below), and mark it executable, e.g. chmod 700 ~/genTFA.py. For totp (most common):
-   #!/usr/bin/python
-   import onetimepass as otp
-   my_secret = 'JBSWY3DPEHPK3PXP'
-   my_token = otp.get_totp(my_secret)
-   print my_token
+5. Use a small python script to generate the TFA code (e.g. genTFA.py), and mark it executable, e.g. chmod 700 ~/genTFA.py. And then use by passing your secret as the parameter, e.g. ~/genTFA.py JBSWY3DPEHPK3PXP . 
 6. If the type is hotp, it is slightly more complicated. You must replace get_totp(my_secret) with get_hotp(my_secret, interval_no=my_counter). You then need to add the appropriate lines to set my_counter to the value of counter from the QR code, incrementing it each time getTFA.py is called. Usually this means storing the current counter in a separate file, reading it into my_counter, calculating the hotp code, incrementing the my_counter, and then saving the updated counter back to the file for the next use.
 7. Congratulations, you can now use the output of genTFA.py to automatically login to a site with TFA. For example, for a Password+TFA protected SSH connection, you can do (all one line):
    ~/genTFA.py > pwfile; echo "Your Password" >> pwdfile; sshpass -t -fpwfile ssh -l <user-id> <TheServer> <command-on-remote-server>
